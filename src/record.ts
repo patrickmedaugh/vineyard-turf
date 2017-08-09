@@ -2,6 +2,7 @@ export class Record {
   modelName:string
   multiple:boolean
   dependents: Record[]
+  fields
 
   constructor(model:string, multiple=false, dependents?:Record[]) {
     this.modelName = model
@@ -17,6 +18,10 @@ export class Record {
   addDependent(record:Record) {
     this.dependents.push(record)
     return this
+  }
+
+  addFields(fields) {
+    this.fields = fields
   }
 }
 
@@ -41,6 +46,13 @@ export class RecordMaker {
   withMultiple(model:string) {
     const record = this.records[this.records.length-1]
     record.addDependent(new Record(model, true))
+    return this
+  }
+
+  withFields(fields) {
+    const record = this.records[this.records.length-1]
+    record.addFields(fields)
+    return this
   }
 
   and(model:string) {
@@ -48,12 +60,8 @@ export class RecordMaker {
     return this
   }
 
-  grab(model:string) {
-    return this.records.find(record => record.modelName === model)
-  }
 }
 
 const turf = new RecordMaker()
-const record = turf.make('Frog').and('Toad').with('Friend').grab('Toad')
-
+const record = turf.make('Frog').and('Toad').withMultiple('Friend')
 console.log(record)

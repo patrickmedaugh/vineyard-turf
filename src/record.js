@@ -15,6 +15,9 @@ var Record = (function () {
         this.dependents.push(record);
         return this;
     };
+    Record.prototype.addFields = function (fields) {
+        this.fields = fields;
+    };
     return Record;
 }());
 exports.Record = Record;
@@ -34,18 +37,21 @@ var RecordMaker = (function () {
     RecordMaker.prototype.withMultiple = function (model) {
         var record = this.records[this.records.length - 1];
         record.addDependent(new Record(model, true));
+        return this;
+    };
+    RecordMaker.prototype.withFields = function (fields) {
+        var record = this.records[this.records.length - 1];
+        record.addFields(fields);
+        return this;
     };
     RecordMaker.prototype.and = function (model) {
         this.records.push(new Record(model));
         return this;
     };
-    RecordMaker.prototype.grab = function (model) {
-        return this.records.find(function (record) { return record.modelName === model; });
-    };
     return RecordMaker;
 }());
 exports.RecordMaker = RecordMaker;
 var turf = new RecordMaker();
-var record = turf.make('Frog').and('Toad').with('Friend').grab('Toad');
+var record = turf.make('Frog').and('Toad').withMultiple('Friend');
 console.log(record);
 //# sourceMappingURL=record.js.map

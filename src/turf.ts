@@ -27,11 +27,22 @@ export class Turf {
 
   }
 
-  fulfillRecord(record) {
-    this.model[record].create()
+  fulfillOrder(recordList) {
+    return recordList.forEach(record => this.fulfillRecord(record))
   }
 
-  createFakeInfo(table: Table) {
+  fulfillRecord(record) {
+    if(record.dependents.length)
+      record.dependents.forEach(dependent => this.fulfillRecord(dependent))
+    else
+      this.model[record.modelName].create(this.fillData(record))
+  }
+
+  fillData(record) {
+
+  }
+
+  createFakeInfo(dateType:string) {
 
   }
 }

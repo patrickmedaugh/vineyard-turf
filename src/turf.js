@@ -10,10 +10,20 @@ var Turf = (function () {
     };
     Turf.prototype.grabRequiredFields = function (record) {
     };
-    Turf.prototype.fulfillRecord = function (record) {
-        this.model[record].create();
+    Turf.prototype.fulfillOrder = function (recordList) {
+        var _this = this;
+        return recordList.forEach(function (record) { return _this.fulfillRecord(record); });
     };
-    Turf.prototype.createFakeInfo = function (table) {
+    Turf.prototype.fulfillRecord = function (record) {
+        var _this = this;
+        if (record.dependents.length)
+            record.dependents.forEach(function (dependent) { return _this.fulfillRecord(dependent); });
+        else
+            this.model[record.modelName].create(this.fillData(record));
+    };
+    Turf.prototype.fillData = function (record) {
+    };
+    Turf.prototype.createFakeInfo = function (dateType) {
     };
     return Turf;
 }());
