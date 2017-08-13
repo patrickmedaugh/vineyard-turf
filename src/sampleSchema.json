@@ -1,0 +1,35 @@
+{
+  "Bitcoin": {
+    "properties": {
+      "index": {
+        "type": "int"
+      },
+      "lastblock": {
+        "type": "string"
+      }
+    }
+  },
+  "BlockchainState": {
+    "properties": {
+      "index": {
+        "type": "int"
+      },
+      "lastblock": {
+        "type": "string"
+      },
+      "currency": {
+        "type": "int"
+      }
+    }
+  },
+  "ExchangeRate": {
+    "properties": {
+      "value": {
+        "type": "float"
+      },
+      "currency": {
+        "type": "int"
+      }
+    }
+  },
+}

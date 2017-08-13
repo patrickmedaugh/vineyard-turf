@@ -51,7 +51,6 @@ var RecordMaker = (function () {
     return RecordMaker;
 }());
 exports.RecordMaker = RecordMaker;
-var turf = new RecordMaker();
-var record = turf.make('Frog').and('Toad').withMultiple('Friend');
-console.log(record);
+var maker = new RecordMaker();
+var record = maker.make('Frog').and('Toad').withMultiple('Friend').withFields({ 'friendcode': 123 });
 //# sourceMappingURL=record.js.map

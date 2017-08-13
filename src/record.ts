@@ -59,9 +59,7 @@ export class RecordMaker {
     this.records.push(new Record(model))
     return this
   }
-
 }
 
-const turf = new RecordMaker()
-const record = turf.make('Frog').and('Toad').withMultiple('Friend')
-console.log(record)
+const maker = new RecordMaker()
+const record = maker.make('Frog').and('Toad').withMultiple('Friend').withFields({'friendcode': 123})
